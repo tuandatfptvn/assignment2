@@ -1,0 +1,13 @@
+server:
+  port: 8082
+
+
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=Brands;encrypt=true;trustServerCertificate=true;
+    username: sa
+    password: datntse171588
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop

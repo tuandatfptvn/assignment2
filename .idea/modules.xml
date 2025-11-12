@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AccountService_SE173191/AccountService_SE173191.iml" filepath="$PROJECT_DIR$/AccountService_SE173191/AccountService_SE173191.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/mss_pre.iml" filepath="$PROJECT_DIR$/.idea/mss_pre.iml" />
     </modules>
   </component>

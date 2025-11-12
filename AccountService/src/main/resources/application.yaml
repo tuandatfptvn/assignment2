@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=StoreAccount;encrypt=true;trustServerCertificate=true;
+    username: sa
+    password: datntse171588
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+app:
+  jwt:
+   secret_key: ${JWT_SECRET_KEY:7Up6yf+86qsfy3KuYGQ8Qvn7keSanaaaaaaaaaaaaaaa}
