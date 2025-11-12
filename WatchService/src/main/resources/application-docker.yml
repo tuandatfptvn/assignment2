@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: watch-service
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:sqlserver://localhost:1433;databaseName=StoreAccount;encrypt=true;trustServerCertificate=true;}
+    username: ${SPRING_DATASOURCE_USERNAME:sa}
+    password: ${SPRING_DATASOURCE_PASSWORD:Datntse@1008}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 8081
+
+brand:
+  service:
+    url: ${BRAND_SERVICE_URL:http://localhost:8082}

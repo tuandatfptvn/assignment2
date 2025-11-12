@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  mssql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: Datntse@1008
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+
+  brand-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_DIR: BrandService
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mssql-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:sqlserver://mssql-server:1433;databaseName=StoreAccount;encrypt=true;trustServerCertificate=true;
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: Datntse@1008
+
+  watch-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_DIR: WatchService
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mssql-server
+      - brand-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:sqlserver://mssql-server:1433;databaseName=StoreAccount;encrypt=true;trustServerCertificate=true;
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: Datntse@1008
+      BRAND_SERVICE_URL: http://brand-service:8082
+
+  account-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_DIR: AccountService
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mssql-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:sqlserver://mssql-server:1433;databaseName=StoreAccount;encrypt=true;trustServerCertificate=true;
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: Datntse@1008
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_DIR: APIGateway
+    ports:
+      - "8888:8888"
+    depends_on:
+      - account-service
+      - watch-service
+      - brand-service
+
+volumes:
+  mssql-data:
